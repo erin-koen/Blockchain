@@ -5,7 +5,9 @@ import sys
 
 
 # TODO: Implement functionality to search for a proof 
-
+def proof_of_work(last_proof):
+    proof = 0
+    while 
 
 if __name__ == '__main__':
     # What node are we interacting with?
@@ -18,6 +20,9 @@ if __name__ == '__main__':
     # Run forever until interrupted
     while True:
         # TODO: Get the last proof from the server and look for a new one
+        last = requests.get(f'{node}/last_proof')
+        last_proof = last.json()['proof']
+        @property
         # TODO: When found, POST it to the server {"proof": new_proof}
         # TODO: If the server responds with 'New Block Forged'
         # add 1 to the number of coins mined and print it.  Otherwise,
