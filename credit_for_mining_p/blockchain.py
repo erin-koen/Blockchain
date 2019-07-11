@@ -259,7 +259,7 @@ def mine():
             recipient=node_identifier,
             amount=1,
         )
-
+        
         # Forge the new Block by adding it to the chain
         previous_hash = blockchain.hash(last_block)
         # print('Hash is: ' + str(previous_hash), file=sys.stderr)
