@@ -29,11 +29,11 @@ if __name__ == '__main__':
         # TODO: Get the last proof from the server and look for a new one
         last = requests.get(f'{node}/last_proof')
         last_proof = last.json()['proof']
-        print('last proof', last_proof)
+
         data = {
             'proof': proof_of_work(last_proof)
         }
-        print('next proof', data['proof'])
+
         # TODO: When found, POST it to the server {"proof": new_proof}
         res = requests.post(url = f'{node}/mine', json = data)
 
