@@ -3,7 +3,7 @@ import json
 from time import time
 from uuid import uuid4
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request # pylint: disable=F0401
 
 import sys
 
@@ -146,23 +146,25 @@ def mine():
     last_block = blockchain.last_block
     last_proof = last_block['proof']
     # Pull data off request NOTE (not sure on notation here)
-    miner = request.get_json()['proof']
+    request_dict = request.get_json()
+    miner_guess = request_dict['proof']
+    print('miner guess', miner_guess)
 
     # Confirm the chain as passed by the miner is the most current NOTE means you'll need to pass the whole chain back and forth
 
     # confirm the proof provided with the miner is valid by hashing it with the last block's proof *NOTE - need to confirm the miner.guess and miner.identifier formatting with miner.py***
 
-    if blockchain.valid_proof(last_proof, miner.guess):
+    if blockchain.valid_proof(last_proof, miner_guess):
         # create a new transaction
         blockchain.new_transaction(
             sender="0",
-            recipient=miner.identifier,
+            recipient="erin",
             amount=1
         )
 
         # Forge the new block and add it to the chain
         previous_hash = blockchain.hash(last_block)
-        block = blockchain.new_block(miner.guess, previous_hash)
+        block = blockchain.new_block(miner_guess, previous_hash)
 
         # Send the same response on valid block
         response = {
@@ -207,13 +209,15 @@ def full_chain():
     }
     return jsonify(response), 200
 
-
 @app.route('/last_proof', methods=['GET'])
-def last_block():
+def last_proof():
+
     response = {
-        "proof": blockchain.chain[-1]["proof"]
+        'proof': blockchain.chain[-1]["proof"]
     }
     return jsonify(response), 200
+
+
 
 # Note, when demoing, start with this, then change to the below
 # if __name__ == '__main__':
