@@ -40,5 +40,7 @@ if __name__ == '__main__':
         # TODO: If the server responds with 'New Block Forged'
         # add 1 to the number of coins mined and print it.  Otherwise,
         # print the message from the server.
-
+        if (res.json()['index']):
+            coins_mined+=1
+            print(f'Total Coins Mined: {coins_mined}')
         print(res.json()['message'])
