@@ -15,6 +15,7 @@ Modify the server we created to:
 * Modify the `mine` endpoint to instead receive and validate or reject a new proof sent by a client.
 * Return a message indicating success or failure.  Remember, a valid proof should fail for all senders except the first.
 
+
 *Client Mining*
 Create a client application that will:
 * Request the latest proof from the `last_proof` endpoint on the server
